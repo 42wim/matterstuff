@@ -10,7 +10,7 @@ import (
 func main() {
 	var title string
 	url := os.Getenv("MM_HOOK")
-	m := matterhook.New(url, matterhook.Config{})
+	m := matterhook.New(url, matterhook.Config{DisableServer: true})
 	msg := matterhook.OMessage{}
 	msg.UserName = "mattertee"
 	buf := new(bytes.Buffer)
