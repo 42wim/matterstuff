@@ -12,7 +12,7 @@ Make sure you have [Go](https://golang.org/doc/install) properly installed, incl
 
 ```
 cd $GOPATH
-go get https://github.com/42wim/matterstuff/mattertee
+go get github.com/42wim/matterstuff/mattertee
 ```
 
 You should now have mattertee binary in the bin directory:
@@ -60,8 +60,6 @@ uptime | mattertee -c off-topic -x
 
 
 ## examples (taken from slacktee)
-```
-
 If you'd like to post the output of `ls` command, you can do it like this.
 
 ```
