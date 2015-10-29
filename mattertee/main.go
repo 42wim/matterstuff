@@ -1,13 +1,14 @@
 package main
 
 import (
+	"bufio"
 	"bytes"
 	"flag"
+	"fmt"
 	"github.com/42wim/matterbridge/matterhook"
 	"io"
 	"os"
 	"os/user"
-	"strings"
 	"time"
 )
 
@@ -47,26 +48,26 @@ func main() {
 	msg.UserName = flagUserName
 	msg.Channel = flagChannel
 	msg.IconURL = flagIconURL
-	buf := new(bytes.Buffer)
-	io.Copy(buf, os.Stdin)
-	msg.Text = md(buf.String())
-	if flagPlainText {
-		msg.Text = buf.String()
-	}
 	if flagNoBuffer {
-		texts := strings.Split(buf.String(), "\n")
-		for _, text := range texts {
-			msg.Text = md(text)
+		scanner := bufio.NewScanner(os.Stdin)
+		for scanner.Scan() {
+			line := scanner.Text()
+			fmt.Println(line)
+			msg.Text = md(line)
 			if flagPlainText {
-				msg.Text = text
+				msg.Text = line
 			}
 			m.Send(msg)
 		}
-		if flagExtra {
-			msg.Text = extraInfo()
-			m.Send(msg)
-		}
 	} else {
+		buf := new(bytes.Buffer)
+		io.Copy(buf, os.Stdin)
+		text := buf.String()
+		fmt.Print(text)
+		msg.Text = md(text)
+		if flagPlainText {
+			msg.Text = text
+		}
 		if flagExtra {
 			msg.Text += extraInfo()
 		}
