@@ -13,8 +13,8 @@ import (
 )
 
 var (
-	flagUserName, flagChannel, flagIconURL, flagMatterURL string
-	flagPlainText, flagNoBuffer, flagExtra                bool
+	flagUserName, flagChannel, flagIconURL, flagMatterURL, flagTitle string
+	flagPlainText, flagNoBuffer, flagExtra                           bool
 )
 
 func init() {
@@ -22,6 +22,7 @@ func init() {
 	flag.StringVar(&flagChannel, "c", "", " Post input values to specified channel or user.")
 	flag.StringVar(&flagIconURL, "i", "", "This url is used as icon for posting.")
 	flag.StringVar(&flagMatterURL, "m", "", "Mattermost incoming webhooks URL.")
+	flag.StringVar(&flagTitle, "t", "", "This title is added to posts. (not with -n)")
 	flag.BoolVar(&flagPlainText, "p", false, "Don't surround the post with triple backticks.")
 	flag.BoolVar(&flagNoBuffer, "n", false, "Post input values without buffering.")
 	flag.BoolVar(&flagExtra, "x", false, "Add extra info (user/hostname/timestamp).")
@@ -70,6 +71,9 @@ func main() {
 		}
 		if flagExtra {
 			msg.Text += extraInfo()
+		}
+		if flagTitle != "" {
+			msg.Text = flagTitle + "\n" + msg.Text
 		}
 		m.Send(msg)
 	}
