@@ -13,24 +13,25 @@ import (
 )
 
 var (
-	flagUserName, flagChannel, flagIconURL, flagMatterURL, flagTitle string
-	flagPlainText, flagNoBuffer, flagExtra                           bool
+	flagUserName, flagChannel, flagIconURL, flagMatterURL, flagTitle, flagLanguage string
+	flagPlainText, flagNoBuffer, flagExtra                                         bool
 )
 
 func init() {
-	flag.StringVar(&flagUserName, "u", "mattertee", "This username is used for posting.")
 	flag.StringVar(&flagChannel, "c", "", " Post input values to specified channel or user.")
 	flag.StringVar(&flagIconURL, "i", "", "This url is used as icon for posting.")
+	flag.StringVar(&flagLanguage, "l", "", "Specify the language used for syntax highlighting (ruby/python/...)")
 	flag.StringVar(&flagMatterURL, "m", "", "Mattermost incoming webhooks URL.")
 	flag.StringVar(&flagTitle, "t", "", "This title is added to posts. (not with -n)")
-	flag.BoolVar(&flagPlainText, "p", false, "Don't surround the post with triple backticks.")
-	flag.BoolVar(&flagNoBuffer, "n", false, "Post input values without buffering.")
+	flag.StringVar(&flagUserName, "u", "mattertee", "This username is used for posting.")
 	flag.BoolVar(&flagExtra, "x", false, "Add extra info (user/hostname/timestamp).")
+	flag.BoolVar(&flagNoBuffer, "n", false, "Post input values without buffering.")
+	flag.BoolVar(&flagPlainText, "p", false, "Don't surround the post with triple backticks.")
 	flag.Parse()
 }
 
 func md(text string) string {
-	return "```\n" + text + "```"
+	return "```" + flagLanguage + "\n" + text + "```"
 }
 
 func extraInfo() string {
