@@ -30,6 +30,8 @@ Usage of ./mattertee:
          Post input values to specified channel or user.
   -i string
         This url is used as icon for posting.
+  -l string
+        Specify the language used for syntax highlighting (ruby/python/...). 
   -m string
         Mattermost incoming webhooks URL.
   -n    Post input values without buffering.
@@ -58,6 +60,11 @@ uptime | mattertee -c off-topic -x
 
 ![Image](http://snag.gy/qJomi.jpg)
 
+```
+cat test.rb |mattertee -c off-topic -l ruby
+```
+
+![Image](http://snag.gy/58ryr.jpg)
 
 ## examples (taken from slacktee)
 If you'd like to post the output of `ls` command, you can do it like this.
