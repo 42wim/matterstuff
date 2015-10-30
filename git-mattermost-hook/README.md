@@ -10,7 +10,6 @@ Requires [mattertee](https://github.com/42wim/matterstuff/tree/master/mattertee)
 
 Note: some git repositories may be "bare". You'll know if your repo is bare or not by checking for a `.git` folder where your repo lives.
 
-https://raw.githubusercontent.com/42wim/matterstuff/master/mattertee/README.md
 Download [git-mattermost-hook](https://raw.githubusercontent.com/42wim/matterstuff/master/git-mattermost-hook/git-mattermost-hook) onto the server which hosts your git repo.
 
 For bare repos, copy/rename it as `/path/to/your/repo/hooks/post-receive`.
