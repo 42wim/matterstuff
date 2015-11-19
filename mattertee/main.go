@@ -25,24 +25,34 @@ type config struct {
 	Extra                              bool
 }
 
-var cfg config
-var extra_configfile string
+var cfg = config{
+	Channel:   "",
+	IconURL:   "",
+	Language:  "",
+	MatterURL: "",
+	Title:     "",
+	Username:  "mattertee",
+	Extra:     false,
+	NoBuffer:  false,
+	PlainText: false,
+}
 
 func init() {
 	// Read configuration from files
 	read_configurations()
 
 	// Now override configuration with command line parameters
-	flag.StringVar(&cfg.Channel, "c", "", "Post input values to specified channel or user.")
-	flag.StringVar(&cfg.IconURL, "i", "", "This url is used as icon for posting.")
-	flag.StringVar(&cfg.Language, "l", "", "Specify the language used for syntax highlighting (ruby/python/...)")
-	flag.StringVar(&cfg.MatterURL, "m", "", "Mattermost incoming webhooks URL.")
-	flag.StringVar(&cfg.Title, "t", "", "This title is added to posts. (not with -n)")
-	flag.StringVar(&cfg.Username, "u", "mattertee", "This username is used for posting.")
-	flag.BoolVar(&cfg.Extra, "x", false, "Add extra info (user/hostname/timestamp).")
-	flag.BoolVar(&cfg.NoBuffer, "n", false, "Post input values without buffering.")
-	flag.BoolVar(&cfg.PlainText, "p", false, "Don't surround the post with triple backticks.")
+	flag.StringVar(&cfg.Channel, "c", cfg.Channel, "Post input values to specified channel or user.")
+	flag.StringVar(&cfg.IconURL, "i", cfg.IconURL, "This url is used as icon for posting.")
+	flag.StringVar(&cfg.Language, "l", cfg.Language, "Specify the language used for syntax highlighting (ruby/python/...)")
+	flag.StringVar(&cfg.MatterURL, "m", cfg.MatterURL, "Mattermost incoming webhooks URL.")
+	flag.StringVar(&cfg.Title, "t", cfg.Title, "This title is added to posts. (not with -n)")
+	flag.StringVar(&cfg.Username, "u", cfg.Username, "This username is used for posting.")
+	flag.BoolVar(&cfg.Extra, "x", cfg.Extra, "Add extra info (user/hostname/timestamp).")
+	flag.BoolVar(&cfg.NoBuffer, "n", cfg.NoBuffer, "Post input values without buffering.")
+	flag.BoolVar(&cfg.PlainText, "p", cfg.PlainText, "Don't surround the post with triple backticks.")
 	flag.Parse()
+	fmt.Fprintf(os.Stderr, "Configuration: %v\n", cfg)
 }
 
 func read_configurations() {
