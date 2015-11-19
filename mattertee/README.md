@@ -24,6 +24,8 @@ mattertee
 
 ## usage
 
+### On the command line
+
 ```
 Usage of ./mattertee:
   -c string
@@ -31,7 +33,7 @@ Usage of ./mattertee:
   -i string
         This url is used as icon for posting.
   -l string
-        Specify the language used for syntax highlighting (ruby/python/...). 
+        Specify the language used for syntax highlighting (ruby/python/...).
   -m string
         Mattermost incoming webhooks URL.
   -n    Post input values without buffering.
@@ -40,6 +42,34 @@ Usage of ./mattertee:
         This username is used for posting. (default "mattertee")
   -x    Add extra info (user/hostname/timestamp).
 ```
+
+### Configuration files
+
+Mattertee will also read from configuration files in order. Later files can (partially) override earlier files.
+
+On Linux: /etc/mattertee.conf, $HOME/.mattertee.conf
+
+On Windows: $HOMEDIR/.mattertee.conf
+
+On all OSes, a file '.mattertee.conf' in the current directory will be read too.
+
+The files (if present) should be yaml-formatted; eg.:
+
+```yaml
+username: thisisme
+channel: mychannel
+icon_url: http://..../image.png
+matter_url: http://mattermost.at.my.domain/hooks/hookid
+title: Some title
+language: ruby
+plain_text: true
+no_buffer: false
+extra: true
+```
+
+Command line options will still override anything set in the configuration files.
+
+### Using environment variables
 
 You can also set MM_HOOK containing your mattermost incoming webhook URL as an enviroment variable.
 
@@ -82,7 +112,7 @@ tail -f foobar.log | mattertee -n
 You can specify `channel`, `username`, `iconurl` too.
 
 ```
-ls | mattertee -c "general" -u "mattertee" -i "http://myimage.png" 
+ls | mattertee -c "general" -u "mattertee" -i "http://myimage.png"
 ```
 
 Of course, you can connect another command with pipe.
