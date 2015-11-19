@@ -66,7 +66,6 @@ func init() {
 	flag.BoolVar(&cfg.NoBuffer, "n", cfg.NoBuffer, "Post input values without buffering.")
 	flag.BoolVar(&cfg.PlainText, "p", cfg.PlainText, "Don't surround the post with triple backticks.")
 	flag.Parse()
-	fmt.Fprintf(os.Stderr, "Configuration: %v\n", cfg)
 }
 
 func config_files() []string {
