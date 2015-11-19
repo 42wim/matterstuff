@@ -42,6 +42,20 @@ func init() {
 	read_configurations()
 
 	// Now override configuration with command line parameters
+	flag.Usage = func() {
+		fmt.Fprintf(os.Stderr, "Usage of %s:\n", os.Args[0])
+		flag.PrintDefaults()
+		fmt.Fprintf(os.Stderr, "\n")
+		fmt.Fprintf(os.Stderr, "The following configuration files will also be read:")
+		fmt.Fprintf(os.Stderr, " (+ if file is present)\n")
+		for _, file := range config_files() {
+			if _, err := os.Stat(file); os.IsNotExist(err) {
+				fmt.Fprintf(os.Stderr, "  - %s\n", file)
+			} else {
+				fmt.Fprintf(os.Stderr, "  + %s\n", file)
+			}
+		}
+	}
 	flag.StringVar(&cfg.Channel, "c", cfg.Channel, "Post input values to specified channel or user.")
 	flag.StringVar(&cfg.IconURL, "i", cfg.IconURL, "This url is used as icon for posting.")
 	flag.StringVar(&cfg.Language, "l", cfg.Language, "Specify the language used for syntax highlighting (ruby/python/...)")
@@ -55,7 +69,7 @@ func init() {
 	fmt.Fprintf(os.Stderr, "Configuration: %v\n", cfg)
 }
 
-func read_configurations() {
+func config_files() []string {
 	// config_files will list configuration files which will be read in order and can override
 	// previous files
 	config_files := []string{}
@@ -70,6 +84,12 @@ func read_configurations() {
 	}
 
 	config_files = append(config_files, ".mattertee.conf")
+
+	return config_files
+}
+
+func read_configurations() {
+	config_files := config_files()
 
 	for _, file := range config_files {
 		err := read_configuration(file)
