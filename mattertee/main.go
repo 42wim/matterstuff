@@ -37,6 +37,9 @@ var cfg = config{
 	PlainText: false,
 }
 
+var flagVersion bool
+var version = "0.1.0"
+
 func init() {
 	// Read configuration from files
 	read_configurations()
@@ -65,6 +68,8 @@ func init() {
 	flag.BoolVar(&cfg.Extra, "x", cfg.Extra, "Add extra info (user/hostname/timestamp).")
 	flag.BoolVar(&cfg.NoBuffer, "n", cfg.NoBuffer, "Post input values without buffering.")
 	flag.BoolVar(&cfg.PlainText, "p", cfg.PlainText, "Don't surround the post with triple backticks.")
+	flag.BoolVar(&flagVersion, "version", false, "show version.")
+
 	flag.Parse()
 }
 
@@ -125,6 +130,10 @@ func extraInfo() string {
 }
 
 func main() {
+	if flagVersion {
+		fmt.Println("version:", version)
+		return
+	}
 	url := os.Getenv("MM_HOOK")
 	if cfg.MatterURL != "" {
 		url = cfg.MatterURL
