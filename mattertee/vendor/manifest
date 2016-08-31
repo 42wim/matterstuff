@@ -1,0 +1,30 @@
+{
+	"version": 0,
+	"dependencies": [
+		{
+			"importpath": "github.com/42wim/matterbridge/matterhook",
+			"repository": "https://github.com/42wim/matterbridge",
+			"vcs": "git",
+			"revision": "44144587a0314b7e2c719d279116ac86b657657e",
+			"branch": "master",
+			"path": "/matterhook",
+			"notests": true
+		},
+		{
+			"importpath": "github.com/gorilla/schema",
+			"repository": "https://github.com/gorilla/schema",
+			"vcs": "git",
+			"revision": "0164a00ab4cd01d814d8cd5bf63fd9fcea30e23b",
+			"branch": "master",
+			"notests": true
+		},
+		{
+			"importpath": "gopkg.in/yaml.v2",
+			"repository": "https://gopkg.in/yaml.v2",
+			"vcs": "git",
+			"revision": "e4d366fc3c7938e2958e662b4258c7a89e1f0e3e",
+			"branch": "master",
+			"notests": true
+		}
+	]
+}
